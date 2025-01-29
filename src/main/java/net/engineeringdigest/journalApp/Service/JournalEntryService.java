@@ -28,12 +28,10 @@ public class JournalEntryService {
     @Autowired
     private UserService userService;
 
-
-
     @Transactional
-    public void saveEntry(JournalEntry journalEntry, String userName) {
+    public void saveEntry(JournalEntry journalEntry, String username) {
         try {
-            User user = userService.findByUsername(userName);
+            User user = userService.findByUsername(username);
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
             user.getJournalentries().add(saved);
@@ -56,10 +54,10 @@ public class JournalEntryService {
     }
 
     @Transactional
-    public boolean deleteById(ObjectId id, String userName) {
+    public boolean deleteById(ObjectId id, String username) {
         boolean removed = false;
         try {
-            User user = userService.findByUsername(userName);
+            User user = userService.findByUsername(username);
             removed = user.getJournalentries().removeIf(x -> x.getId().equals(id));
             if (removed) {
                 userService.saveEntry(user);

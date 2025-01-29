@@ -30,8 +30,8 @@ public class JournalEntryController {
     @GetMapping
     public ResponseEntity<?> getAllJournalEntriesOfUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        User user = userService.findByUsername(userName);
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
         List<JournalEntry> all = user.getJournalentries();
         if (all != null && !all.isEmpty()) {
             return new ResponseEntity<>(all, HttpStatus.OK);
@@ -40,11 +40,11 @@ public class JournalEntryController {
     }
 
     @PostMapping
-    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry) {
+    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry,String username) {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userName = authentication.getName();
-            journalEntryService.saveEntry(myEntry, userName);
+            journalEntryService.saveEntry(myEntry, username);
             return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -55,8 +55,8 @@ public class JournalEntryController {
     public ResponseEntity<?> getJournalEntryById(@PathVariable String myId) {
         ObjectId objectId = new ObjectId(myId);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userName = authentication.getName();
-        User user = userService.findByUsername(userName);
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
         List<JournalEntry> collect = user.getJournalentries().stream().filter(x -> x.getId().equals(objectId)).collect(Collectors.toList());
         if (!collect.isEmpty()) {
             Optional<JournalEntry> journalEntry = journalEntryService.findById(objectId);
@@ -80,10 +80,10 @@ public class JournalEntryController {
     }
 
     @PutMapping("id/{myId}")
-    public ResponseEntity<?> updateJournalById(@PathVariable ObjectId myId, @RequestBody JournalEntry newEntry) {
+    public ResponseEntity<?> updateJournalById(@PathVariable ObjectId myId, @RequestBody JournalEntry newEntry,String username) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        User user = userService.findByUsername(userName);
+        User user = userService.findByUsername(username);
         List<JournalEntry> collect = user.getJournalentries().stream().filter(x -> x.getId().equals(myId)).collect(Collectors.toList());
         if (!collect.isEmpty()) {
             Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);

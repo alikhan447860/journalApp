@@ -15,7 +15,7 @@ public class JournalApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(JournalApplication.class, args);
-        System.out.print("Ali khan");
+        System.out.print("Ali-khan");
     }
     @Bean
     public PlatformTransactionManager falana(MongoDatabaseFactory dbFactory){
