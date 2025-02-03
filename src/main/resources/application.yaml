@@ -5,6 +5,9 @@ spring:
 
 
 
-logging:
-  level:
-    root: ERROR
+
+
+
+Weather:
+  api:
+    key: f44eaaaaecfa30427c2638d89a2c2bfb

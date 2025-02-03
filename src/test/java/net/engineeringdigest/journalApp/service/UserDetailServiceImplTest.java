@@ -3,7 +3,6 @@ package net.engineeringdigest.journalApp.service;
 import net.engineeringdigest.journalApp.Reposetry.UserRep;
 import net.engineeringdigest.journalApp.Service.UserDetailServiceImpl;
 import net.engineeringdigest.journalApp.entity.User;
-import net.engineeringdigest.journalApp.Reposetry.UserRep;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentMatchers;
